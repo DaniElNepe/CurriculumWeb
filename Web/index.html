@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daniel Rodríguez del Valle - CV Online</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f4f4;
+      color: #333;
+    }
+    header {
+      background: #2c3e50;
+      color: white;
+      padding: 3rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+    .header-title {
+      flex: 1 1 30%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .header-title h1 {
+      font-size: 3rem; /* antes era 4rem */
+      margin: 0 0 1rem 0;
+      text-align: left;
+    }
+    
+    .title-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .contact-info p {
+      margin: 0.2rem 0;
+      font-size: 1rem;
+      color: #ecf0f1;
+    }
+    .contact-info a {
+      color: #ecf0f1;
+      text-decoration: underline;
+    }
+    .header-presentation {
+      flex: 1 1 65%;
+      font-size: 1rem;
+    }
+    .header-presentation p {
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+    section {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    h2 {
+      font-size: 2rem;
+      color: #2c3e50;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 0.5rem;
+    }
+    h3 {
+      font-size: 1.5rem; /* Ajusta según prefieras */
+      margin-top: 0.8rem;
+      margin-bottom: 0.8rem;
+    }
+    .cv-section {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+    .timeline {
+      border-left: 4px solid #3498db;
+      padding-left: 1rem;
+      margin-left: 1rem;
+    }
+    .timeline-item {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -1.1rem;
+      top: 0.25rem;
+      width: 0.75rem;
+      height: 0.75rem;
+      background-color: #3498db;
+      border-radius: 50%;
+    }
+    .skills-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: center;
+    }
+    .skills-title {
+      flex: 1;
+    }
+    .skills-graph {
+      flex: 3;
+      display: flex;
+      justify-content: center;
+    }
+    canvas {
+        max-width: 500px;
+        width: 100%;  /* se adapta al tamaño del contenedor */
+        height: auto;
+    }
+    .stars {
+      color: gold;
+      font-size: 1.5rem;
+    }
+    .language {
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .cv-section a {
+      display: inline-block;
+      align-self: flex-end;
+      padding: 0.5rem 1rem;
+      background: #3498db;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    .video-blog-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .video-blog-container iframe {
+      flex: 2;
+      min-width: 300px;
+      height: 315px;
+      border: none;
+    }
+    .blog-link {
+      flex: 1;
+      background: #ecf0f1;
+      padding: 1rem;
+      border-radius: 8px;
+    }
+    .blog-link a {
+      text-decoration: none;
+      color: #2980b9;
+      font-weight: bold;
+    }
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #777;
+    }
+.cv-dual-column {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem; /* más separación horizontal */
+  justify-content: space-between;
+  align-items: center; /* centrado vertical */
+}
+
+.cv-left, .cv-right {
+  flex: 1 1 45%;
+}
+
+.cv-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 1rem; /* separación extra horizontal */
+}
+
+.cv-left canvas {
+  max-width: 100%;
+}
+/* Animación general */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Aplicación al título */
+.slide-in-left {
+  opacity: 0;
+  animation: slideInLeft 0.8s ease-out forwards;
+}
+
+/* Retraso para los datos de contacto */
+.delayed {
+  animation-delay: 0.5s;
+}
+.aptitudes-container {
+  margin-top: 1rem;
+  margin-bottom: 3rem; /* este añade espacio por debajo */
+  text-align: center;
+}
+
+.aptitudes {
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.aptitud {
+  background-color: #3498db;
+  color: white;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  text-align: center;
+  padding: 1rem;
+  line-height: 1.2;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.aptitud:nth-child(2) {
+  background: #2980b9;
+}
+.aptitud:nth-child(3) {
+  background: #2471a3;
+}
+.aptitud:nth-child(4) {
+  background: #1f618d;
+}
+
+.aptitud:hover {
+  background: #1abc9c;
+  cursor: default;
+}
+
+  </style>
+</head>
+<body>
+  <header>
+  <div class="header-title">
+    <div class="title-container">
+      <h1 class="slide-in-left">Daniel Rodríguez del Valle</h1>
+      <div class="contact-info slide-in-left delayed">
+        <p>📍 Madrid, España</p>
+        <p>✉️ d.rdelvalle@alumnos.upm.es</p>
+        <p>📞 +34 658 72 65 00</p> 
+        <p>🔗 <a href="https://www.linkedin.com/in/daniel-rodr%C3%ADguez-del-valle/" target="_blank">Perfil de LinkedIn</a></p>
+      </div>
+    </div>
+  </div>
+    <div class="header-presentation">
+      <p>Me llamo Daniel Rodríguez del Valle, actualmente estudio Ingeniería Informática en la Universidad Politécnica de Madrid y durante los últimos nueve meses he trabajado como desarrollador en SATEC.  Estoy interesado en trabajar en el sector de Python IA Developer. Creo que esta posición representa una gran oportunidad para seguir desarrollando mi carrera en el ámbito de la inteligencia artificial y el desarrollo backend, dos áreas que me apasionan y en las que ya tengo experiencia.</p>
+      <p>He participado en proyectos con .NET y he utilizado herramientas como n8n, orientadas a la automatización y creación de agentes de IA. Esta experiencia me ha permitido acercarme al mundo de los modelos de lenguaje y aplicar soluciones prácticas en entornos reales.</p>
+      <p>También he trabajado con Python para construir APIs, integrar servicios de IA y realizar tareas de entrenamiento de modelos. Me siento cómodo trabajando con bases de datos SQL y tengo conocimientos básicos en plataformas cloud como AWS. Además, cuento con un nivel B2 de inglés, lo que me permite manejar documentación técnica y participar en conversaciones en entornos internacionales.</p>
+      <p>Me motiva especialmente la idea de colaborar en proyectos innovadores y aprender con un equipo experimentado. Creo que puedo aportar iniciativa, capacidad técnica y muchas ganas de crecer profesionalmente en el sector.</p>
+    </div>
+  </header>
+
+  <section class="cv-section">
+    <h2>Curriculum vitae</h2>
+
+    <div class="cv-block">
+      <h3>Perfil profesional</h3>
+      <p>Joven desarrollador de software con experiencia en .NET y automatización de procesos mediante herramientas como n8n. Apasionado por la inteligencia artificial aplicada, con conocimientos en Python, desarrollo de APIs, bases de datos y entornos cloud. Busco formar parte de un equipo innovador donde pueda seguir aprendiendo y aportar soluciones eficientes.</p>
+    </div>
+
+    <div class="cv-block">
+      <h3>Formación Académica y Experiencia</h3>
+      <div class="timeline">
+        <div class="timeline-item">
+          <strong>2015 – 2019</strong>: ESO, Eurocolegio Casvi, Boadilla del Monte
+        </div>
+        <div class="timeline-item">
+          <strong>2019 – 2021</strong>: Bachillerato, Eurocolegio Casvi, Boadilla del Monte
+        </div>
+        <div class="timeline-item">
+          <strong>2021 – Actualidad</strong>: Grado en Ingeniería Informática, Universidad Politécnica de Madrid
+        </div>
+        <div class="timeline-item">
+          <strong>Desde septiembre de 2024</strong>: Desarrollador de software en SATEC
+          <ul>
+            <li>Desarrollo backend con .NET</li>
+            <li>Automatización con n8n orientada a IA</li>
+            <li>Integración de servicios de IA y BBDD SQL</li>
+            <li>Servicios cloud básicos (AWS)</li>
+            <li>Trabajo en entornos ágiles</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+<div class="cv-block cv-dual-column">
+  <div class="cv-left">
+    <h3>Habilidades y competencias</h3>
+    <div class="skills-graph">
+      <canvas id="skillsRadar" width="500" height="500"></canvas>
+    </div>
+  </div>
+  <div class="cv-right">
+    <h3>Idiomas</h3>
+    <table style="border-collapse: collapse; width: 50%;">
+  <tr>
+    <td style="border: none; vertical-align: middle; font-size: 1.3rem;">Español:</td>
+    <td style="border: none; vertical-align: middle; font-size: 1.8rem; line-height: 1;">★★★★★</td>
+  </tr>
+  <tr>
+    <td style="border: none; vertical-align: middle; font-size: 1.3rem;">Inglés:</td>
+    <td style="border: none; vertical-align: middle; font-size: 1.8rem; line-height: 1;">★★★★☆</td>
+  </tr>
+  <tr>
+    <td style="border: none; vertical-align: middle; font-size: 1.3rem;">Francés:</td>
+    <td style="border: none; vertical-align: middle; font-size: 1.8rem; line-height: 1;">★★☆☆☆</td>
+  </tr>
+</table>
+  </div>
+</div>
+
+<div class="cv-block aptitudes-container">
+  <h3>Aptitudes</h3>
+  <div class="aptitudes">
+    <div class="aptitud">Responsable</div>
+    <div class="aptitud">Colaborador</div>
+    <div class="aptitud">Buen comunicador</div>
+    <div class="aptitud">Empático</div>
+  </div>
+</div>
+
+    <a href="CV-Daniel-Rodriguez-del-Valle.pdf" download>Descargar Curriculum Vitae en PDF</a>
+  </section>
+
+  <section>
+    <h2>Video Currículum</h2>
+    <div class="video-blog-container">
+      <iframe src="https://www.youtube.com/embed/EVt5uC7RWSg" allowfullscreen></iframe>
+      <div class="blog-link">
+        <h3>También te puede interesar:</h3>
+        <a href="blog.html">¿Hasta dónde pueden llegar los agentes de inteligencia artificial?</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Daniel Rodríguez del Valle. Proyecto universitario.
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const ctx = document.getElementById('skillsRadar');
+    new Chart(ctx, {
+      type: 'radar',
+      data: {
+        labels: ['Python', 'C#', 'Java', 'C++', 'HTML'],
+        datasets: [{
+          label: '',
+          data: [70, 90, 85, 70, 60],
+          backgroundColor: 'rgba(52, 152, 219, 0.2)',
+          borderColor: '#3498db',
+          pointBackgroundColor: '#3498db'
+        }]
+      },
+      options: {
+        plugins: {
+          legend: {
+            display: false
+          }
+        },
+        scales: {
+          r: {
+            pointLabels: {
+              font: {
+                size: 16
+              }
+            },
+            angleLines: { display: true },
+            suggestedMin: 0,
+            suggestedMax: 100,
+            ticks: { display: false }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
